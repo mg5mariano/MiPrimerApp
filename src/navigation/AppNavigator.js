@@ -2,6 +2,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Ionicons } from "@expo/vector-icons"; // Importación de íconos
 
 import HomeScreen from "../screen/HomeScreen";
 import UserScreen from "../screen/UserScreen";
@@ -14,9 +15,22 @@ const Tab = createBottomTabNavigator();
 // Definición del Tab Navigator
 const MyTabNavigator = () => {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomeScreen} options={{}} />
-      <Tab.Screen name="User" component={UserScreen} options={{}} />
+    <Tab.Navigator
+      initialRouteName="Home"
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ color, size }) => {
+          let iconName;
+          if (route.name === "Home") {
+            iconName = "home-outline";
+          } else if (route.name === "User") {
+            iconName = "person-outline";
+          }
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+      })}
+    >
+      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="User" component={UserScreen} />
     </Tab.Navigator>
   );
 };

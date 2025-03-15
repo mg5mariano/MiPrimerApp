@@ -1,16 +1,19 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import colors from '../constants/colors';
 
 export default function HomeScreen({ navigation }) {
   return (
-    <SafeAreaView style={styles.container}>
+    <LinearGradient colors={[colors.variante1, colors.variante7]} style={styles.container}>
       <Text style={styles.text}>Bienvenido a Inicio</Text>
-      <Button 
-        title="Ir a Usuario" 
-        onPress={() => navigation.navigate('User')} 
-        color="#007bff"
-      />
-    </SafeAreaView>
+      <TouchableOpacity 
+        style={styles.button}
+        onPress={() => navigation.navigate('User')}
+      >
+        <Text style={styles.buttonText}>Ir a Usuario</Text>
+      </TouchableOpacity>
+    </LinearGradient>
   );
 }
 
@@ -19,13 +22,22 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f5f5f5',
   },
   text: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#fff', 
     marginBottom: 20,
   },
+  button: {
+    backgroundColor: '#007bff',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
 });
-
