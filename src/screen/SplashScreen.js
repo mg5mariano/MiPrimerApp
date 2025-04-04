@@ -1,16 +1,14 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, Text, ActivityIndicator, Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { LinearGradient } from 'expo-linear-gradient';
-import colors from '../constants/colors';
+import React, { useEffect } from "react";
+import { StyleSheet, Text, ActivityIndicator, Image } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import colors from "../constants/colors";
 
 export default function SplashScreen({ navigation }) {
-  const nav = navigation || useNavigation(); 
-
   useEffect(() => {
-    setTimeout(() => {
-      nav.replace('MainTabs'); 
-    }, 4000);
+    const timeout = setTimeout(() => {
+      navigation.replace("Auth"); // Puedes cambiar esto a 'MainTabs' si el usuario está autenticado
+    }, 3000);
+    return () => clearTimeout(timeout);
   }, []);
 
   return (
@@ -23,21 +21,8 @@ export default function SplashScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    color: colors.TextoPrimario,
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  logo: {
-    width: 250,
-    height: 250,
-    marginBottom: 20,
-    resizeMode: 'contain',
-  },
+  container: { flex: 1, justifyContent: "center", alignItems: "center" },
+  text: { color: colors.TextoPrimario, fontSize: 24, fontWeight: "bold", marginBottom: 20 },
+  logo: { width: 250, height: 250, marginBottom: 20, resizeMode: "contain" },
 });
+

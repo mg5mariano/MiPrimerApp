@@ -24,7 +24,6 @@ export default {
     TextoSecundario: '#c9b8e6', 
     TextoInactivo: '#7a678e', 
   
-    //Otros colores UI
     Borde: '#5a3372', // Para bordes y separadores
     Sombra: '#2d1b3f', // Para sombras y profundidad
     Hover: '#8530a3', // Efecto hover en botones y elementos interactivos

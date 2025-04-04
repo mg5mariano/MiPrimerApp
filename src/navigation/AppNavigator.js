@@ -1,47 +1,35 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons } from "@expo/vector-icons"; // Importación de íconos
 
+import { AuthContext } from "../../src/Context/AuthContext";
 import HomeScreen from "../screen/HomeScreen";
 import UserScreen from "../screen/UserScreen";
 import SplashScreen from "../screen/SplashScreen";
+import AuthStack from "./AuthStack";
 
-// Creación de navegadores
 const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
 
-// Definición del Tab Navigator
-const MyTabNavigator = () => {
-  return (
-    <Tab.Navigator
-      initialRouteName="Home"
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ color, size }) => {
-          let iconName;
-          if (route.name === "Home") {
-            iconName = "home-outline";
-          } else if (route.name === "User") {
-            iconName = "person-outline";
-          }
-          return <Ionicons name={iconName} size={size} color={color} />;
-        },
-      })}
-    >
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="User" component={UserScreen} />
-    </Tab.Navigator>
-  );
-};
+const MyTabNavigator = createBottomTabNavigator();
 
-// Definición del Stack Navigator
+const Tabs = () => (
+  <MyTabNavigator.Navigator>
+    <MyTabNavigator.Screen name="Home" component={HomeScreen} />
+    <MyTabNavigator.Screen name="User" component={UserScreen} />
+  </MyTabNavigator.Navigator>
+);
+
 export default function AppNavigator() {
+  const { user } = useContext(AuthContext);
+
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Splash">
-        <Stack.Screen name="Splash" component={SplashScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="MainTabs" component={MyTabNavigator} options={{ headerShown: false }} />
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        {user === null ? (
+          <Stack.Screen name="Auth" component={AuthStack} />
+        ) : (
+          <Stack.Screen name="MainTabs" component={Tabs} />
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );
