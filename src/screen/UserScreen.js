@@ -1,7 +1,20 @@
+import { signOut } from 'firebase/auth';
 import React from 'react';
-import { StyleSheet, Text, View, Button, Image } from 'react-native';
+import { Alert, Button, Image, StyleSheet, Text, View } from 'react-native';
+import { auth } from '../../services/firebaseConfig';
 
 export default function UserScreen({ navigation }) {
+  
+  const handleLogout = () => {
+    signOut(auth)
+      .then(() => {
+        navigation.replace('Login');
+      })
+      .catch(error => {
+        Alert.alert('Error al cerrar sesión', error.message);
+      });
+  };
+
   return (
     <View style={styles.container}>
       <Image 
@@ -9,11 +22,20 @@ export default function UserScreen({ navigation }) {
         style={styles.avatar} 
       />
       <Text style={styles.username}>Usuario: mg5mariano</Text>
+      
       <Button 
         title="Volver a Home" 
         onPress={() => navigation.navigate('Home')} 
         color="#007bff"
       />
+
+      <View style={{ marginTop: 20 }}>
+        <Button 
+          title="Cerrar sesión" 
+          onPress={handleLogout} 
+          color="#dc3545"
+        />
+      </View>
     </View>
   );
 }
