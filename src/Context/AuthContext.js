@@ -6,19 +6,19 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // ⬅️ estado para saber si está cargando
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      setLoading(false); // ⬅️ cuando se recibe el usuario, ya no está cargando
+      setLoading(false); 
     });
 
     return () => unsubscribe();
   }, []);
 
   if (loading) {
-    // Puedes reemplazar esto por un componente visual de carga
+    
     return null;
   }
 
@@ -29,5 +29,5 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-// Hook personalizado para usar el contexto
+
 export const useAuth = () => useContext(AuthContext);

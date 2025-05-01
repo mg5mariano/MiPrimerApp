@@ -11,7 +11,6 @@ import UserScreen from "../screen/UserScreen";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-// Navegación por pestañas (después de login)
 const Tabs = () => (
   <Tab.Navigator screenOptions={{ headerShown: false }}>
     <Tab.Screen name="Home" component={HomeScreen} />
@@ -22,7 +21,6 @@ const Tabs = () => (
 export default function AppNavigator() {
   const { user } = useContext(AuthContext);
 
-  // Puedes incluir un splash o una validación extra si deseas
   if (user === undefined) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
