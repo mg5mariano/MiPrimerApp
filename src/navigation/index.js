@@ -1,4 +1,4 @@
 import { registerRootComponent } from "expo";
-import App from "../../App"; // Corrige el path si es necesario
+import App from "../../App";
 
 registerRootComponent(App);

@@ -10,10 +10,9 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getApps, initializeApp } from "firebase/app";
 import { getAuth, getReactNativePersistence, initializeAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { Platform } from "react-native";
-
-console.log("API_KEY:", EXPO_PUBLIC_API_KEY);
 
 const firebaseConfig = {
   apiKey: EXPO_PUBLIC_API_KEY,
@@ -27,9 +26,7 @@ const firebaseConfig = {
 
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 
-// Este es el cambio importante:
 let auth;
-
 if (Platform.OS === 'web') {
   auth = getAuth(app);
 } else {
@@ -39,6 +36,7 @@ if (Platform.OS === 'web') {
 }
 
 const storage = getStorage(app);
+const db = getFirestore(app);
 
-export { auth, storage };
+export { auth, db, storage };
 

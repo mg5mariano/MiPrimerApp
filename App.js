@@ -3,6 +3,7 @@ import * as Notifications from 'expo-notifications';
 import React, { useEffect } from 'react';
 import FlashMessage from 'react-native-flash-message';
 import { registerForPushNotificationsAsync } from './services/NotificationService';
+
 import { AuthProvider } from './src/Context/AuthContext';
 import AppNavigator from './src/navigation/AppNavigator';
 

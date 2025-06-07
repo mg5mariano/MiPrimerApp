@@ -1,90 +1,92 @@
-import React from 'react';
-import { Modal, View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import colors from '../constants/colors';
 
-const ModalEditProfile = ({ visible, title, value, onChangeText, onSave, onCancel }) => {
-  return (
-    <Modal
-      visible={visible}
-      animationType="slide"
-      transparent={true}
-    >
-      <View style={styles.modalContainer}>
-        <View style={styles.modalContent}>
-          <Text style={styles.title}>{title || 'Editar perfil'}</Text>
+const ModalEditProfile = ({ visible, title, value, onChangeText, onSave, onCancel }) => (
+  <Modal visible={visible} animationType="fade" transparent>
+    <View style={styles.overlay}>
+      <View style={styles.card}>
+        <Text style={styles.title}>{title || 'Editar campo'}</Text>
 
-          <TextInput
-            style={styles.input}
-            placeholder="Escribe aquí..."
-            value={value}
-            onChangeText={onChangeText}
-          />
+        <TextInput
+          style={styles.input}
+          placeholder="Escribe aquí..."
+          placeholderTextColor={colors.TextoInactivo}
+          value={value}
+          onChangeText={onChangeText}
+        />
 
-          <View style={styles.buttonRow}>
-            <TouchableOpacity style={styles.saveButton} onPress={onSave}>
-              <Text style={styles.buttonText}>Guardar</Text>
-            </TouchableOpacity>
+        <View style={styles.row}>
+          <TouchableOpacity style={styles.saveBtn} onPress={onSave}>
+            <Text style={styles.btnTxt}>Guardar</Text>
+          </TouchableOpacity>
 
-            <TouchableOpacity style={styles.cancelButton} onPress={onCancel}>
-              <Text style={styles.buttonText}>Cancelar</Text>
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity style={styles.cancelBtn} onPress={onCancel}>
+            <Text style={styles.btnTxt}>Cancelar</Text>
+          </TouchableOpacity>
         </View>
       </View>
-    </Modal>
-  );
-};
+    </View>
+  </Modal>
+);
+
+export default ModalEditProfile;
 
 const styles = StyleSheet.create({
-  modalContainer: {
+  overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: 'rgba(0,0,0,0.55)',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
-  modalContent: {
-    backgroundColor: '#fff',
-    padding: 25,
-    borderRadius: 10,
-    width: '85%'
+  card: {
+    width: '85%',
+    backgroundColor: colors.FondoClaro,
+    borderRadius: 14,
+    padding: 24,
+    shadowColor: colors.Sombra,
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 3 },
+    elevation: 5,
   },
   title: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
-    marginBottom: 15,
-    textAlign: 'center'
+    color: colors.variante2,
+    marginBottom: 18,
+    textAlign: 'center',
   },
   input: {
     borderWidth: 1,
-    borderColor: colors.primary || '#ccc',
-    borderRadius: 8,
-    padding: 10,
-    marginBottom: 20
+    borderColor: colors.Borde,
+    borderRadius: 10,
+    padding: 12,
+    fontSize: 16,
+    color: colors.variante2,
+    marginBottom: 24,
   },
-  buttonRow: {
+  row: {
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
-  saveButton: {
-    backgroundColor: colors.primary || '#007bff',
-    padding: 12,
-    borderRadius: 8,
+  saveBtn: {
     flex: 1,
-    marginRight: 5,
-    alignItems: 'center'
-  },
-  cancelButton: {
-    backgroundColor: '#6c757d',
+    backgroundColor: colors.principal,
     padding: 12,
-    borderRadius: 8,
-    flex: 1,
-    marginLeft: 5,
-    alignItems: 'center'
+    borderRadius: 10,
+    marginRight: 6,
+    alignItems: 'center',
   },
-  buttonText: {
-    color: '#fff',
-    fontWeight: 'bold'
-  }
+  cancelBtn: {
+    flex: 1,
+    backgroundColor: colors.Borde,
+    padding: 12,
+    borderRadius: 10,
+    marginLeft: 6,
+    alignItems: 'center',
+  },
+  btnTxt: {
+    color: colors.TextoPrimario,
+    fontWeight: 'bold',
+  },
 });
-
-export default ModalEditProfile;

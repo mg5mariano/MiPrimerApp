@@ -1,117 +1,112 @@
-import React from 'react';
 import { Image, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import colors from '../constants/colors';
 
-const ModalImagePicker = ({ 
-  visible, 
-  onChooseImage, 
-  onSave, 
-  onCancel,
-  imageUri 
-}) => {
-  return (
-    <Modal
-      visible={visible}
-      animationType="slide"
-      transparent
-    >
-      <View style={styles.modalContainer}>
-        <View style={styles.modalContent}>
-          <Text style={styles.title}>Editar Foto de Perfil</Text>
-          
-          {imageUri ? (
-            <Image source={{ uri: imageUri }} style={styles.imagePreview} />
-          ) : (
-            <View style={styles.imagePlaceholder}>
-              <Text>Sin imagen</Text>
-            </View>
-          )}
+const ModalImagePicker = ({ visible, onChooseImage, onSave, onCancel, imageUri }) => (
+  <Modal visible={visible} animationType="slide" transparent>
+    <View style={styles.overlay}>
+      <View style={styles.card}>
+        <Text style={styles.title}>Editar foto de perfil</Text>
 
-          <TouchableOpacity style={styles.chooseButton} onPress={onChooseImage}>
-            <Text style={styles.buttonText}>Elegir Imagen</Text>
-          </TouchableOpacity>
-
-          <View style={styles.buttonRow}>
-            <TouchableOpacity style={styles.saveButton} onPress={onSave}>
-              <Text style={styles.buttonText}>Guardar</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.cancelButton} onPress={onCancel}>
-              <Text style={styles.buttonText}>Cancelar</Text>
-            </TouchableOpacity>
+        {imageUri ? (
+          <Image source={{ uri: imageUri }} style={styles.preview} />
+        ) : (
+          <View style={styles.previewPlaceholder}>
+            <Text style={{ color: colors.TextoInactivo }}>Sin imagen</Text>
           </View>
+        )}
+
+        <TouchableOpacity style={styles.chooseBtn} onPress={onChooseImage}>
+          <Text style={styles.btnTxt}>Elegir Imagen</Text>
+        </TouchableOpacity>
+
+        <View style={styles.row}>
+          <TouchableOpacity style={styles.saveBtn} onPress={onSave}>
+            <Text style={styles.btnTxt}>Guardar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.cancelBtn} onPress={onCancel}>
+            <Text style={styles.btnTxt}>Cancelar</Text>
+          </TouchableOpacity>
         </View>
       </View>
-    </Modal>
-  );
-};
+    </View>
+  </Modal>
+);
+
+export default ModalImagePicker;
+
+const AVATAR_SIZE = 130;
 
 const styles = StyleSheet.create({
-  modalContainer: {
+  overlay: {
     flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.65)',
     justifyContent: 'center',
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    alignItems: 'center',
   },
-  modalContent: {
-    margin: 20,
-    backgroundColor: colors.white,
-    borderRadius: 10,
-    padding: 20,
+  card: {
+    width: '85%',
+    backgroundColor: colors.FondoClaro,
+    borderRadius: 14,
+    padding: 24,
+    shadowColor: colors.Sombra,
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 4 },
+    elevation: 6,
     alignItems: 'center',
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginBottom: 15,
+    color: colors.variante2,
+    marginBottom: 16,
+    textTransform: 'capitalize',
   },
-  imagePreview: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
+  preview: {
+    width: AVATAR_SIZE,
+    height: AVATAR_SIZE,
+    borderRadius: AVATAR_SIZE / 2,
     marginVertical: 15,
   },
-  imagePlaceholder: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    backgroundColor: '#ccc',
+  previewPlaceholder: {
+    width: AVATAR_SIZE,
+    height: AVATAR_SIZE,
+    borderRadius: AVATAR_SIZE / 2,
+    backgroundColor: colors.variante5,
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 15,
   },
-  chooseButton: {
-    backgroundColor: colors.primary,
-    padding: 10,
-    borderRadius: 5,
-    marginBottom: 15,
-    width: '100%',
-    alignItems: 'center',
+  chooseBtn: {
+    backgroundColor: colors.Hover,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 10,
+    marginBottom: 20,
   },
-  buttonRow: {
+  row: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     width: '100%',
+    justifyContent: 'space-between',
   },
-  saveButton: {
+  saveBtn: {
     flex: 1,
-    backgroundColor: colors.primary,
-    padding: 10,
-    borderRadius: 5,
-    marginRight: 5,
+    backgroundColor: colors.Exito,
+    padding: 12,
+    borderRadius: 10,
+    marginRight: 6,
     alignItems: 'center',
   },
-  cancelButton: {
+  cancelBtn: {
     flex: 1,
-    backgroundColor: colors.secondary,
-    padding: 10,
-    borderRadius: 5,
-    marginLeft: 5,
+    backgroundColor: colors.error,
+    padding: 12,
+    borderRadius: 10,
+    marginLeft: 6,
     alignItems: 'center',
   },
-  buttonText: {
-    color: colors.white,
+  btnTxt: {
+    color: colors.TextoPrimario,
     fontWeight: 'bold',
   },
 });
-
-export default ModalImagePicker;
